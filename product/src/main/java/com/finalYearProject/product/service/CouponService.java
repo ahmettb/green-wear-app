@@ -42,21 +42,33 @@ public class CouponService {
         Set<Brands> brandsSet = new HashSet<>();
         Set<Category> categorySet = new HashSet<>();
         List<User> userList = new ArrayList<>();
-        request.getApplicableBrands().forEach(brandId ->
+        if(request.getApplicableBrands()!=null)
         {
+            request.getApplicableBrands().forEach(brandId ->
+            {
 
-            Brands brands = brandRepository.findById(brandId).orElseThrow(() -> new EntityNotFoundException());
-            brandsSet.add(brands);
+                Brands brands = brandRepository.findById(brandId).orElseThrow(() -> new EntityNotFoundException());
+                brandsSet.add(brands);
 
-        });
+            });
+            couponCode.setApplicableBrands(brandsSet);
 
-        request.getApplicableCategories().forEach(categoryId ->
+        }
+
+        if(request.getApplicableCategories()!=null)
         {
+            request.getApplicableCategories().forEach(categoryId ->
+            {
 
-            Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new EntityNotFoundException());
-            categorySet.add(category);
+                Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new EntityNotFoundException());
+                categorySet.add(category);
 
-        });
+            });
+            couponCode.setApplicableCategories(categorySet);
+
+        }
+
+
 
         request.getUserId().forEach(userId ->
         {
@@ -67,8 +79,6 @@ public class CouponService {
         });
 
 
-        couponCode.setApplicableBrands(brandsSet);
-        couponCode.setApplicableCategories(categorySet);
         couponCode.setUsers(userList);
 
         couponCodeRepository.save(couponCode);
@@ -79,9 +89,9 @@ public class CouponService {
     public List<CouponCodeResponse> getCouponByUserId(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException());
 
+
         List<CouponCodeResponse> couponCodeResponses = new ArrayList<>();
-        List<CategoryResponse> categoryResponseList = new ArrayList<>();
-        List<BrandResponse> brandResponseList = new ArrayList<>();
+        List<CategoryResponse> categoryResponseList = new ArrayList<>();List<BrandResponse> brandResponseList = new ArrayList<>();
         user.getCouponCodes().forEach(couponCode -> {
 
             BrandResponse brandResponse = new BrandResponse();
@@ -89,22 +99,32 @@ public class CouponService {
             CouponCodeResponse response = new CouponCodeResponse();
 
             response.setTitle(couponCode.getTitle());
+            response.setType(couponCode.getCouponType().name());
+            response.setCouponId(couponCode.getId());
+            response.setValue(Double.valueOf(couponCode.getCouponValue()));
             response.setMaxPrice(couponCode.getMaxPrice());
-            couponCode.getApplicableCategories().stream().toList().forEach(category -> {
+            if (couponCode.getApplicableCategories() != null) {
+                couponCode.getApplicableCategories().stream().toList().forEach(category -> {
 
-                categoryResponse.setId(category.getId());
-                categoryResponse.setName(category.getName());
-                categoryResponseList.add(categoryResponse);
-            });
-            couponCode.getApplicableBrands().stream().toList().forEach(brand -> {
+                    categoryResponse.setId(category.getId());
+                    categoryResponse.setName(category.getName());
+                    categoryResponseList.add(categoryResponse);
+                });
+                response.setCategoryResponses(categoryResponseList);
 
-                brandResponse.setId(brand.getId());
-                brandResponse.setName(brand.getName());
-                brandResponseList.add(brandResponse);
-            });
+            }
+            if (couponCode.getApplicableBrands() != null) {
+                couponCode.getApplicableBrands().stream().toList().forEach(brand -> {
 
-            response.setCategoryResponses(categoryResponseList);
-            response.setBrandResponses(brandResponseList);
+                    brandResponse.setId(brand.getId());
+                    brandResponse.setName(brand.getName());
+                    brandResponseList.add(brandResponse);
+                });
+                response.setBrandResponses(brandResponseList);
+
+            }
+
+
             couponCodeResponses.add(response);
 
         });

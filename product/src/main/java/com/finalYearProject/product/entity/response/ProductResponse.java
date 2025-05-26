@@ -20,15 +20,15 @@ public class ProductResponse {
     private String material;
     private String qrCode;
     private Integer sizeS;
-    private  Integer sizeM;
-    private  Integer sizeL;
+    private Integer sizeM;
+    private Integer sizeL;
     private Integer sizeXL;
     private Integer stock;
+
     private Double waterUsage;
     private Double carbonFootprint;
-
     private Double energyUsage;
-    private  Double recyclabilityScore;
+    private Double recyclabilityScore;
     private Double wasteGenerated;
 
     private String factoryName; // Üretildiği fabrika
@@ -39,11 +39,17 @@ public class ProductResponse {
     private BigDecimal price;
 
 
+    private String suggestionProductId;
+    private String suggestionProductName;
+    private Double suggestioncarbonFootprint;
+    private String suggestionCategory;
+    private Double suggestionwaterUsage;
 
-   // public List<TransportResponse> transportResponseList;
+    private Double suggestionenergyUsage;
+    private String suggestionReason; // Öneri nedenini belirten yeni alan
 
 
-
+    // public List<TransportResponse> transportResponseList;
 
 
 }

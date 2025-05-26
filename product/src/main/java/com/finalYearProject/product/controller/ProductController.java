@@ -33,6 +33,16 @@ public class ProductController {
 
     }
 
+    @GetMapping("get-filter")
+    @CrossOrigin
+    public ResponseEntity<List<ProductResponse>> filterProduct(@RequestParam(name = "type") String type)
+    {
+        return  new ResponseEntity<>(productService.filterProducts(type),HttpStatus.OK);
+
+
+    }
+
+
     @PostMapping("solve")
     @CrossOrigin
     public ResponseEntity<?> getById(@RequestBody SolveQuizRequest request) {

@@ -5,6 +5,9 @@ import com.finalYearProject.product.entity.Product;
 import com.finalYearProject.product.entity.request.CreateProductRequest;
 import com.finalYearProject.product.entity.response.ProductResponse;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductMapper {
 
 
@@ -34,12 +37,29 @@ public class ProductMapper {
         response.setPrice(product.getPrice());
         response.setWaterUsage(product.getEnvironmentalImpact().getWaterUsageL());
         response.setPrice(product.getPrice());
+        response.setWasteGenerated(product.getEnvironmentalImpact().getWasteGenerated());
         response.setSizeL(product.getLSizeCount());
         response.setSizeM(product.getMSizeCount());
         response.setSizeS(product.getSSizeCount());
         response.setSizeXL(product.getXlSizeCount());
         response.setStock(product.getStock());
+        response.setRecyclabilityScore(product.getEnvironmentalImpact().getRecyclabilityPercent());
 
         return  response;
+    }
+
+    public static List<ProductResponse>mapToList(List<Product> productList)
+    {
+
+        List<ProductResponse>productResponseList=new ArrayList<>();
+
+        for(Product product: productList)
+        {
+
+           productResponseList.add( mapToResponse(product));
+        }
+
+        return  productResponseList;
+
     }
 }

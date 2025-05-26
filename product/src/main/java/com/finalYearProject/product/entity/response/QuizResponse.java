@@ -16,5 +16,6 @@ public class QuizResponse {
     private Boolean status;
     private Long couponId;
     private Integer minPoint;
+    private Long quizId;
 
 }

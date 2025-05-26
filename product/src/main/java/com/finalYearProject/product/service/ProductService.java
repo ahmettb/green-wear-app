@@ -15,7 +15,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 import static com.finalYearProject.product.service.ProductSpecification.nameLike;
 
@@ -32,8 +35,44 @@ public class ProductService {
 
 
     public ProductResponse getProductById(Long id) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+        Product product = productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Ürün bulunamadı."));
+        Category category = categoryRepository.findAll().stream()
+                .filter(c -> c.getName().equals(product.getCategory().getName()))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Kategori bulunamadı."));
+
         ProductResponse response = ProductMapper.mapToResponse(product);
+
+        Random random=new Random();
+        int r1 = random.nextInt(3);
+
+        if (r1 == 1) {
+            List<Product> lowerImpactProducts = productRepository.findAll().stream()
+                    .filter(p -> p.getCategory().getName().equals(category.getName()) &&
+                            (p.getEnvironmentalImpact().getCarbonFootprintKg() < product.getEnvironmentalImpact().getCarbonFootprintKg() ||
+                                    p.getEnvironmentalImpact().getWaterUsageL() < product.getEnvironmentalImpact().getWaterUsageL()
+                                    ))
+                    .collect(Collectors.toList());
+
+            if (!lowerImpactProducts.isEmpty()) {
+                int randomIndex = random.nextInt(lowerImpactProducts.size());
+                Product suggestionProduct = lowerImpactProducts.get(randomIndex);
+                response.setSuggestionProductId(String.valueOf(suggestionProduct.getId()));
+                response.setSuggestionProductName(suggestionProduct.getName());
+                response.setSuggestioncarbonFootprint(suggestionProduct.getEnvironmentalImpact().getCarbonFootprintKg());
+                response.setSuggestionCategory(suggestionProduct.getCategory().getName());
+                response.setSuggestionwaterUsage(suggestionProduct.getEnvironmentalImpact().getWaterUsageL());
+              //  response.setSuggestionenergyUsage(suggestionProduct.getEnvironmentalImpact().);
+
+                // Öneri Nedenini Belirle
+                if (suggestionProduct.getEnvironmentalImpact().getCarbonFootprintKg() < product.getEnvironmentalImpact().getCarbonFootprintKg()) {
+                    response.setSuggestionReason("Daha düşük karbon ayak izine sahip.");
+                } else if (suggestionProduct.getEnvironmentalImpact().getWaterUsageL() < product.getEnvironmentalImpact().getWaterUsageL()) {
+                    response.setSuggestionReason("Daha az su tüketiyor.");
+                }
+            }
+        }
+
         return response;
     }
 
@@ -50,6 +89,35 @@ public class ProductService {
         searchProductFilter("", "", "o", "", "");
 
         return productResponseList;
+    }
+
+    public List<ProductResponse> filterProducts(String filterType) {
+
+        List<Product> productList = productRepository.findAll();
+        List<ProductResponse> productResponseList = ProductMapper.mapToList(productList);
+
+        switch (filterType) {
+
+            case "INCREASE_PRICE": {
+                productResponseList= productResponseList.stream().sorted(Comparator.comparing(ProductResponse::getPrice)).collect(Collectors.toList());
+                break;
+            }
+
+            case "DECREASE_PRICE": {
+                productResponseList= productResponseList.stream().sorted(Comparator.comparing(ProductResponse::getPrice).reversed()).collect(Collectors.toList());
+                break;
+            }
+            case "INCREASE_CARBON": {
+                productResponseList= productResponseList.stream().sorted(Comparator.comparing(ProductResponse::getCarbonFootprint).reversed()).collect(Collectors.toList());
+                break;
+            }
+            case "DECREASE_CARBON": {
+                productResponseList= productResponseList.stream().sorted(Comparator.comparing(ProductResponse::getCarbonFootprint).reversed()).collect(Collectors.toList());
+                break;
+            }
+        }
+        return productResponseList;
+
     }
 
 

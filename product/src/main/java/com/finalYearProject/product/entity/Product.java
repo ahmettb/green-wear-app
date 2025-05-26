@@ -1,6 +1,7 @@
 package com.finalYearProject.product.entity;
 
 
+import com.finalYearProject.product.constant.MaterialType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,9 +48,10 @@ public class Product {
     private Double point;
 
 
-    //private List<String> imageUrls;
+    @Enumerated(EnumType.STRING)
+    private MaterialType type;
 
-    private String certification;
+
 
     @Column(name = "xl_size_count")
     private Integer xlSizeCount;

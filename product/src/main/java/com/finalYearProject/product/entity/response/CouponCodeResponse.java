@@ -12,10 +12,11 @@ import java.util.List;
 @Data
 public class CouponCodeResponse {
 
-
+    private Long couponId;
     private String title;
     private Double maxPrice;
-
+    private String type;
+    private Double value;
     private List<CategoryResponse> categoryResponses;
     private List<BrandResponse> brandResponses;
 

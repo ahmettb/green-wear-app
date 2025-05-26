@@ -24,4 +24,6 @@ public class EnvironmentalImpact {
     @Column(name = "water_usage_l")
     private Double waterUsageL;
     private Double recyclabilityPercent;
+    private Double energy;
+    private Double wasteGenerated;
 }

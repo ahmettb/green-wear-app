@@ -55,6 +55,8 @@ public class QuizService {
             User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new EntityNotFoundException());
             user.setSustainableScore(user.getSustainableScore()==null ? 0: user.getSustainableScore() + quiz.getPoint());
 
+
+
             boolean control = user.getCouponCodes().stream().anyMatch(couponCode -> couponCode.getId() == quiz.getCouponCode().getId());
             if (!control) {
                 user.getCouponCodes().add(quiz.getCouponCode());
@@ -130,6 +132,7 @@ public class QuizService {
         return user.getQuizzes().stream().filter(q->q.getStatus()).map(quiz -> {
             QuizResponse resp = new QuizResponse();
             resp.setUserId(user.getId());
+            resp.setQuizId(quiz.getId());
             resp.setTitle(quiz.getTitle());
             resp.setDescription(quiz.getDescription());
             resp.setStatus(quiz.getStatus());
