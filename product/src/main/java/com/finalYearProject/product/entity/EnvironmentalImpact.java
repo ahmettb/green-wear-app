@@ -23,7 +23,7 @@ public class EnvironmentalImpact {
     private Double carbonFootprintKg;
     @Column(name = "water_usage_l")
     private Double waterUsageL;
-    private Double recyclabilityPercent;
+   // private Double recyclabilityPercent;
     private Double energy;
     private Double wasteGenerated;
 }

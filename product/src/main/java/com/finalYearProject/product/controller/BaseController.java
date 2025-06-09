@@ -15,12 +15,7 @@ public abstract  class BaseController {
     //auth
     static final String AUTH_REGISTER = AUTH + "/register";
     static final String AUTH_LOGIN = AUTH + "/login";
-    static final String AUTH_LOGIN_WITH_GOOGLE = AUTH + "/login-google/{idToken}";
-    static final String AUTH_LOGIN_WITH_APPLE = AUTH + "/login-apple/{idToken}";
-    static final String AUTH_REFRESH = AUTH + "/refresh";
-    static final String AUTH_LOGOUT = AUTH + "/logout";
-    static final String AUTH_FORGOT_PASSWORD = AUTH + "/forgotPassword";
-    static final String AUTH_RESET_PASSWORD = AUTH + "/resetPassword";
+
 
     //USER
     static final String USER_GET_INFO_BY_TOKEN = USER + "/getInfoByToken/{token}";

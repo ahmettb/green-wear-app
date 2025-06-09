@@ -3,7 +3,7 @@ package com.finalYearProject.product.utilities.component;
 
 import com.finalYearProject.product.utilities.dto.ErrorWrapperDto;
 import com.finalYearProject.product.utilities.exception.FashionException;
-import com.finalYearProject.product.utilities.exception.KolayFaturaBulkException;
+import com.finalYearProject.product.utilities.exception.FashionExceptionBulkException;
 import com.finalYearProject.product.utilities.property.BasePropertyConfig;
 import com.finalYearProject.product.utilities.property.ErrorMessageDefinition;
 import lombok.AllArgsConstructor;
@@ -131,13 +131,13 @@ public class ExceptionUtil {
         return errorWrapperDto;
     }
 
-    public ErrorWrapperDto convert(KolayFaturaBulkException bulkException, String language, String applicationName) {
+    public ErrorWrapperDto convert(FashionExceptionBulkException bulkException, String language, String applicationName) {
         ErrorWrapperDto dto = convert(bulkException, language);
         dto.setApplicationName(applicationName);
         return dto;
     }
 
-    public ErrorWrapperDto convert(KolayFaturaBulkException bulkException, String language) {
+    public ErrorWrapperDto convert(FashionExceptionBulkException bulkException, String language) {
         List<ErrorWrapperDto> errorWrapperDtos = new ArrayList<>();
         for (FashionException exception : bulkException.getExceptions()) {
             errorWrapperDtos.add(convert(exception, language));

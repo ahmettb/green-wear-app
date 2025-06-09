@@ -28,29 +28,5 @@ public class AuthController extends BaseController{
     }
 
 
-    @GetMapping(AUTH_REFRESH)
-    @CrossOrigin
-    public TokenDto refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
-        return authService.refreshToken(refreshTokenRequest);
-    }
-    @PostMapping(AUTH_LOGOUT)
-    @ApiOperation("Gonderilen tokeni siler")
-    @CrossOrigin
-    public String logoutUser(@RequestBody LogoutRequest logOutRequest) {
-        return authService.logoutUser(logOutRequest);
-    }
-
-    @PostMapping(AUTH_FORGOT_PASSWORD)
-    @CrossOrigin
-    public Boolean forgotPassword(@RequestBody ForgetPasswordRequest forgetPasswordRequest) throws Exception {
-        return authService.forgotPassword(forgetPasswordRequest);
-    }
-
-    @PostMapping(AUTH_RESET_PASSWORD)
-    @CrossOrigin
-    public Boolean resetPassword(@RequestBody ResetPasswordRequest resetPasswordRequest) throws Exception {
-        return authService.resetPassword(resetPasswordRequest);
-    }
-
 
 }

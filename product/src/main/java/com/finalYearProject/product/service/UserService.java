@@ -106,7 +106,7 @@ public class UserService {
                     totalCo2 += (impact.getCarbonFootprintKg() != null ? impact.getCarbonFootprintKg() : 0.0) * quantity;
                     totalWaterUsage += (impact.getWaterUsageL() != null ? impact.getWaterUsageL() : 0.0) * quantity;
                     totalEnergyUsage += (impact.getEnergy() != null ? impact.getEnergy() : 0.0) * quantity;
-                    totalRecyclabilityScoreSum += (impact.getRecyclabilityPercent() != null ? impact.getRecyclabilityPercent() : 0.0) * quantity;
+ //                   totalRecyclabilityScoreSum += (impact.getRecyclabilityPercent() != null ? impact.getRecyclabilityPercent() : 0.0) * quantity;
                     totalWaste += (impact.getWasteGenerated() != null ? impact.getWasteGenerated() : 0.0) * quantity;
                 }
 

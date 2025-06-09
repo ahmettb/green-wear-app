@@ -38,12 +38,12 @@ public class ProductMapper {
         response.setWaterUsage(product.getEnvironmentalImpact().getWaterUsageL());
         response.setPrice(product.getPrice());
         response.setWasteGenerated(product.getEnvironmentalImpact().getWasteGenerated());
-        response.setSizeL(product.getLSizeCount());
-        response.setSizeM(product.getMSizeCount());
-        response.setSizeS(product.getSSizeCount());
-        response.setSizeXL(product.getXlSizeCount());
+     //   response.setSizeL(product.getLSizeCount());
+     //   response.setSizeM(product.getMSizeCount());
+      //  response.setSizeS(product.getSSizeCount());
+      //  response.setSizeXL(product.getXlSizeCount());
         response.setStock(product.getStock());
-        response.setRecyclabilityScore(product.getEnvironmentalImpact().getRecyclabilityPercent());
+      //  response.setRecyclabilityScore(product.getEnvironmentalImpact().getRecyclabilityPercent());
 
         return  response;
     }

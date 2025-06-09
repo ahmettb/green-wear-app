@@ -28,22 +28,22 @@ public class Product {
 
     private Integer stock;
 
-    @Column(length = 100)
-    private String material;
+   // @Column(length = 100)
+   // private String material;
 
     private BigDecimal price;
 
-    @Column(name = "factory_country")
-    private String factoryCountry;
+   // @Column(name = "factory_country")
+  //  private String factoryCountry;
 
-    @Column(name = "s_size_count")
-    private Integer sSizeCount;
+   // @Column(name = "s_size_count")
+   // private Integer sSizeCount;
 
-    @Column(name = "m_size_count")
-    private Integer mSizeCount;
+    //@Column(name = "m_size_count")
+   // private Integer mSizeCount;
 
-    @Column(name = "l_size_count")
-    private Integer lSizeCount;
+    //@Column(name = "l_size_count")
+    //private Integer lSizeCount;
 
     private Double point;
 
@@ -53,8 +53,8 @@ public class Product {
 
 
 
-    @Column(name = "xl_size_count")
-    private Integer xlSizeCount;
+   // @Column(name = "xl_size_count")
+   // private Integer xlSizeCount;
 
     @ManyToOne
     @JoinColumn(name = "brand_id")
@@ -64,13 +64,8 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToOne
-    @JoinColumn(name = "company_id")
-    private Company company;
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     private EnvironmentalImpact environmentalImpact;
 
-    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
-    private TransportData transportData;
 }

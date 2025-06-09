@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class KolayFaturaBulkException extends RuntimeException {
+public class FashionExceptionBulkException extends RuntimeException {
 
     private List<FashionException> exceptions = new ArrayList<>();
 
