@@ -95,14 +95,14 @@ Environmental impacts of products are calculated using Python based on **Life Cy
 ### For Backend:
 
 ```bash
-cd finalYearProject/product
+cd backend/product
 ./mvnw spring-boot:run
 ```
 
 ### For Mobile Application:
 
 ```bash
-cd bitirmeApp
+cd frontend
 npm install
 npx expo start
 ```
