@@ -58,7 +58,6 @@ public class PaymentService {
 
         CouponCode code = new CouponCode();
         Double totalPoint = 0.0;
-        // 1. Kullanıcıyı bul
         Optional<User> userOptional = userRepository.findById(request.getUserId());
         if (userOptional.isEmpty()) {
             System.err.println("Hata: Kullanıcı bulunamadı. userId: " + request.getUserId());
@@ -66,39 +65,30 @@ public class PaymentService {
         }
         User user = userOptional.get();
 
-        // 2. PaymentInfo objesini oluştur ve kullanıcıyı ata
         PaymentInfo paymentInfo = new PaymentInfo();
         paymentInfo.setUser(user);
         paymentInfo.setCreatedDate(new Date()); // Sipariş oluşturulma tarihini set et
 
-        // 3. Kupon Kodu İşleme
-        // Eğer request'te couponId varsa kuponu ara
+
         if (request.getCouponId() != null) {
             Optional<CouponCode> couponCodeOptional = couponCodeRepository.findById(request.getCouponId());
             if (couponCodeOptional.isPresent()) {
                 code = couponCodeOptional.get();
-                // Kuponun uygulanabilir kategori/marka kısıtlamaları yoksa doğrudan ata
-                // Eğer kısıtlamalar varsa ve bu siparişle eşleşmiyorsa kuponu atama.
-                // Daha karmaşık kupon doğrulama mantığı buraya eklenebilir.
+
                 if (code.getApplicableCategories() == null && code.getApplicableBrands() == null) {
                     paymentInfo.setCouponCode(code);
                 } else {
-                    // Kupon kısıtlamaları var, bu örnekte uygulanmıyor.
-                    // Gerçek uygulamada, sipariş kalemlerinin kupon kısıtlamalarına uyup uymadığı kontrol edilmeli.
                     paymentInfo.setCouponCode(null); // Kupon kısıtlamalı olduğu için uygulanmadı
                 }
             } else {
-                // Kupon ID'si verildi ama kupon bulunamadı, kuponsuz devam et
                 paymentInfo.setCouponCode(null);
                 System.out.println("Kupon ID'si '" + request.getCouponId() + "' ile kupon bulunamadı. Sipariş kuponsuz oluşturulacak.");
             }
         } else {
-            // Request'te couponId yok, kuponsuz devam et
             paymentInfo.setCouponCode(null);
             System.out.println("Kupon ID'si belirtilmedi. Sipariş kuponsuz oluşturulacak.");
         }
 
-        // 4. Sipariş Kalemlerini İşle ve Toplam Tutarı Hesapla
         Double totalAmount = 0.0;
         List<OrderItemRequest> requestList = request.getOrderItemRequestList();
 
@@ -124,28 +114,22 @@ public class PaymentService {
             orderItem.setQuantity(itemRequest.getQuantity());
             orderItem.setPriceAtPurchase(itemRequest.getBuyPrice());
 
-            // OrderItem'ı PaymentInfo'ya ekle.
-            // PaymentInfo'daki CascadeType.ALL sayesinde OrderItem'lar PaymentInfo ile birlikte kaydedilecektir.
             paymentInfo.addOrderItem(orderItem);
 
-            // Toplam tutarı hesapla (adet ve satın alma fiyatını dikkate alarak)
             totalAmount += orderItem.getPriceAtPurchase() * orderItem.getQuantity();
         }
 
-        // 5. Kupon indirimini uygula (eğer kupon atandıysa ve indirim miktarı varsa)
         if (paymentInfo.getCouponCode() != null && paymentInfo.getCouponCode().getCouponValue() != null) {
             Double discount = Double.valueOf(paymentInfo.getCouponCode().getCouponValue());
             totalAmount -= discount;
-            // Toplam tutarın negatif olmamasını sağla
             if (totalAmount < 0) {
                 totalAmount = 0.0;
             }
             System.out.println("Kupon indirimi uygulandı. İndirim miktarı: " + discount + " TL. Yeni toplam: " + totalAmount + " TL");
         }
 
-        // 6. Toplam tutarı PaymentInfo'ya ata ve kaydet
         paymentInfo.setTotalPrice(totalAmount);
-        paymentInfoRepository.save(paymentInfo); // PaymentInfo ve ilişkili OrderItem'lar kaydedilir
+        paymentInfoRepository.save(paymentInfo);
 
         userService.userRank(user.getId(), totalPoint);
 

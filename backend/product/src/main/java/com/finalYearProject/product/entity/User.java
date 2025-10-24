@@ -27,12 +27,10 @@ public class User {
     )
     private List<CouponCode> couponCodes = new ArrayList<>();
 
-    /** Bir kullanıcı birden çok quiz oluşturabilir/çözebilir */
-    // Renamed to userQuizzes, mapping to the new join entity
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserQuiz> userQuizzes = new ArrayList<>();
 
-    /** Kullanıcının rütbesi */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rank_id")
     private UserRank rank;

@@ -25,7 +25,6 @@ public class CouponCode {
 
     private String couponValue;
 
-    /** Site genelindeyse boş kalır, değilse sadece bu markalara uygulanır */
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "coupon_brand",
@@ -34,7 +33,6 @@ public class CouponCode {
     )
     private Set<Brands> applicableBrands = new HashSet<>();
 
-    /** Site genelindeyse boş kalır, değilse sadece bu kategorilere uygulanır */
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "coupon_category",
@@ -42,7 +40,6 @@ public class CouponCode {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private Set<Category> applicableCategories = new HashSet<>();
-    /** Aynı kupon birden çok kullanıcıya atanabilir */
     @ManyToMany(mappedBy = "couponCodes", fetch = FetchType.LAZY)
     private List<User> users = new ArrayList<>();
 }

@@ -11,7 +11,7 @@ import org.springframework.data.redis.core.index.Indexed;
 
 import java.io.Serializable;
 
-@RedisHash(value = "kolayfatura.refreshToken")
+@RedisHash(value = "greenWear.refreshToken")
 @Getter
 @Setter
 @NoArgsConstructor

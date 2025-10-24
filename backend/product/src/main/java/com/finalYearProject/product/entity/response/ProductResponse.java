@@ -32,11 +32,10 @@ public class ProductResponse {
     private Double recyclabilityScore;
     private Double wasteGenerated;
 
-    private String factoryName; // Üretildiği fabrika
-    private String productionMethod; // Elle mi? Makineyle mi?
-    private Boolean usesRenewableEnergy; // Yenilenebilir enerji kullanımı var mı?
-    private Double productionCarbonFootprint; // Üretimdeki karbon ayak izi
-
+    private String factoryName;
+    private String productionMethod;
+    private Boolean usesRenewableEnergy;
+    private Double productionCarbonFootprint;
     private BigDecimal price;
 
 
@@ -47,10 +46,8 @@ public class ProductResponse {
     private Double suggestionwaterUsage;
 
     private Double suggestionenergyUsage;
-    private String suggestionReason; // Öneri nedenini belirten yeni alan
+    private String suggestionReason;
 
-
-    // public List<TransportResponse> transportResponseList;
 
 
 }

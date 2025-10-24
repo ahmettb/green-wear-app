@@ -26,17 +26,16 @@ public class UserQuiz {
     private Quiz quiz;
 
     @Column(name = "is_completed")
-    private Boolean isCompleted = false; // True if the user has completed the quiz
+    private Boolean isCompleted = false;
 
     @Column(name = "is_passed")
-    private Boolean isPassed; // True if the user passed the quiz (optional)
-
+    private Boolean isPassed;
     @Column(name = "user_score")
-    private Integer userScore = 0; // Score achieved by the user in this quiz
+    private Integer userScore = 0;
 
     @Column(name = "attempt_count")
-    private Integer attemptCount = 0; // Number of attempts (optional)
+    private Integer attemptCount = 0;
 
     @Column(name = "last_Youtubeed")
-    private Integer lastQuestionAnswered = 0; // To track progress within the quiz
+    private Integer lastQuestionAnswered = 0;
 }

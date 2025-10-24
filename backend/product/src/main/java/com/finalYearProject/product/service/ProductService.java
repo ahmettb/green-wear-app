@@ -67,9 +67,7 @@ public class ProductService {
                 response.setSuggestioncarbonFootprint(suggestionProduct.getEnvironmentalImpact().getCarbonFootprintKg());
                 response.setSuggestionCategory(suggestionProduct.getCategory().getName());
                 response.setSuggestionwaterUsage(suggestionProduct.getEnvironmentalImpact().getWaterUsageL());
-                //  response.setSuggestionenergyUsage(suggestionProduct.getEnvironmentalImpact().);
 
-                // Öneri Nedenini Belirle
                 if (suggestionProduct.getEnvironmentalImpact().getCarbonFootprintKg() < product.getEnvironmentalImpact().getCarbonFootprintKg()) {
                     response.setSuggestionReason("Daha düşük karbon ayak izine sahip.");
                 } else if (suggestionProduct.getEnvironmentalImpact().getWaterUsageL() < product.getEnvironmentalImpact().getWaterUsageL()) {

@@ -1,17 +1,17 @@
-# 🌱 Sustainable Wardrobe - Sustainable Fashion Tracking Application
+#  Green Wear - Sustainable Fashion Tracking Application
 
 In today's world, the fashion industry doesn't just produce style and aesthetics; it also creates significant environmental and social impacts. This mobile application is a digital solution that allows users to track the environmental impacts of their clothing purchases, make sustainable choices, and develop environmentally conscious shopping habits.
 
 ---
 
-## 📱 Application Features
+##  Application Features
 
-### 🏠 Home Page
+###  Home Page
 - User's **sustainability score** and **rank**
 - Information cards (tips, sustainability suggestions)
 - Filterable product list
 
-### 👚 My Wardrobe
+###  My Wardrobe
 - **Total environmental impacts** of purchased products:
   - Water Consumption (L)
   - Carbon Footprint (kg CO₂)
@@ -19,7 +19,7 @@ In today's world, the fashion industry doesn't just produce style and aesthetics
   - Waste Amount (g)
 - **Time-based environmental analysis** with graphs
 
-### 🔍 Product Detail Page
+###  Product Detail Page
 - Product image, price, environmental impact data
 - **More sustainable alternative product recommendations**
 - Informative comparisons:
@@ -28,12 +28,12 @@ In today's world, the fashion industry doesn't just produce style and aesthetics
   - Energy = days of household electricity
   - Waste = average household waste amount
 
-### 🎯 Quiz and Chatbot
+###  Quiz and Chatbot
 - Test your knowledge with short quizzes
 - **Gemini AI** integration for intelligent chatbot
 - Eco-friendly shopping guide and sustainability advice
 
-### 🧾 Profile and Settings
+###  Profile and Settings
 - Theme selection (Light/Dark Mode)
 - Order history and cart management
 - Profile information editing
@@ -49,7 +49,7 @@ This architecture is deployed on the **Render.com** platform. The Spring Boot ap
 
 ---
 
-## 🧠 Technologies Used
+##  Technologies Used
 
 ### Backend
 - **Spring Boot** - Java-based web framework
@@ -69,7 +69,7 @@ This architecture is deployed on the **Render.com** platform. The Spring Boot ap
 
 ---
 
-## 🔢 Environmental Impact Calculation
+##  Environmental Impact Calculation
 
 Environmental impacts of products are calculated using Python based on **Life Cycle Assessment (LCA)** data according to product materials and weight. Four fundamental metrics are calculated by applying customized coefficients for each category:
 
@@ -80,7 +80,7 @@ Environmental impacts of products are calculated using Python based on **Life Cy
 
 ---
 
-## 🖼️ Screenshots
+## 🖼 Screenshots
 
 ![Application Screens](p1.png)
 
@@ -90,7 +90,7 @@ Environmental impacts of products are calculated using Python based on **Life Cy
 
 ---
 
-## 🚀 Installation and Setup
+##  Installation and Setup
 
 ### For Backend:
 
@@ -109,6 +109,6 @@ npx expo start
 
 ---
 
-## 📊 Results
+##  Results
 
 The developed application has enabled users to see environmental impacts with more concrete data and has encouraged conscious consumption behaviors. The direct display of impacts such as water consumption, carbon footprint, energy requirement, and waste amount of products has created awareness in shopping decisions. Additionally, interactive content such as quizzes and chatbots has increased users' knowledge about sustainable fashion and strengthened their commitment to the system.

@@ -10,7 +10,7 @@ import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
 
 
-@RedisHash(value = "fasihonApp.accessToken")
+@RedisHash(value = "greenWear.accessToken")
 @Getter
 @Setter
 @ToString

@@ -13,6 +13,11 @@ import java.util.Map;
 public class GeminiChatBotApiService {
 
 
+
+    @Value("${GEMINI_API_KEY}")
+    private String geminiApiKey;
+
+
     public  Map<String ,String> sendMessageToGemini(String message) {
 
 
@@ -22,35 +27,27 @@ public class GeminiChatBotApiService {
         contents.add(Map.of("role", "user", "parts", List.of(Map.of("text", systemPrompt))));
         contents.add(Map.of("role", "model", "parts", List.of(Map.of("text", "Merhaba! Sürdürülebilir moda hakkında merak ettiğin her şeyi bana sorabilirsin. Sana yardımcı olmak için buradayım."))));
         contents.add(Map.of("role", "user", "parts", List.of(Map.of("text", message))));
-        String geminiApiKey = "AIzaSyCeeiJYTmRB-dBpiMQ-FolchJ70Sawp6VA";
         RestTemplate restTemplate = new RestTemplate();
         Map<String, Object> requestBody = Map.of("contents", contents);
 
         String geminiApiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + geminiApiKey;
         String responseText = "";
         ResponseEntity<Map> response = restTemplate.postForEntity(geminiApiUrl, requestBody, Map.class);
-        // responseBody, API'den gelen JSON'ın Map<String, Object> hali
         Map<String, Object> responseBody = response.getBody();
 
-// 1. "candidates" listesine eriş
         List<Map<String, Object>> candidates = (List<Map<String, Object>>) responseBody.get("candidates");
 
-// 2. candidates listesinin ilk elemanına (ilk adaya) eriş
         if (candidates != null && !candidates.isEmpty()) {
             Map<String, Object> firstCandidate = candidates.get(0);
 
-            // 3. "content" map'ine eriş
             Map<String, Object> content = (Map<String, Object>) firstCandidate.get("content");
 
-            // 4. "parts" listesine eriş
             if (content != null) {
                 List<Map<String, Object>> parts = (List<Map<String, Object>>) content.get("parts");
 
-                // 5. parts listesinin ilk elemanına (ilk parçaya) eriş
                 if (parts != null && !parts.isEmpty()) {
                     Map<String, Object> firstPart = parts.get(0);
 
-                    // 6. "text" alanına eriş ve String olarak çek
                     responseText = (String) firstPart.get("text");
                 }
             }
